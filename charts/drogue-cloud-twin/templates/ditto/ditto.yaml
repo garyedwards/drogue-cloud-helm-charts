@@ -1,10 +1,13 @@
+{{- $ref := dict "root" . "name" "ditto" "component" "digital-twin" -}}
 kind: Ditto
 apiVersion: iot.eclipse.org/v1alpha1
 metadata:
   name: ditto
   labels:
-    app.kubernetes.io/name: ditto
+    {{- include "drogue-cloud-twin.labels" $ref | nindent 4 }}
 spec:
+
+  disableInfraProxy: true
 
   mongoDb:
     host: mongodb

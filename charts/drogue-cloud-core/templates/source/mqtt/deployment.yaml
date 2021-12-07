@@ -19,10 +19,10 @@ spec:
         {{- include "drogue-cloud-common.init-container.wait-for-client-secret" ( dict "root" . "volume" "client-secret-services")  | nindent 8 }}
       containers:
         - name: endpoint
-          image: {{ include "drogue-cloud-core.image" $ref | quote }}
-          imagePullPolicy: {{ include "drogue-cloud-core.image-pull-policy" . }}
+          image: {{ include "drogue-cloud-common.image" $ref | quote }}
+          imagePullPolicy: {{ include "drogue-cloud-common.image-pull-policy" . }}
           env:
-            {{- include "drogue-cloud-core.rust.logging" ( dict "root" . "app" .Values.endpoints.mqtt ) | nindent 12 }}
+            {{- include "drogue-cloud-common.rust.logging" ( dict "root" . "app" .Values.endpoints.mqtt ) | nindent 12 }}
             - name: BIND_ADDR_MQTT
               value: "0.0.0.0:{{ if .Values.endpoints.mqtt.insecure }}1883{{- else -}}8883{{- end }}"
             - name: BIND_ADDR_HTTP
